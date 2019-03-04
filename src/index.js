@@ -5,13 +5,14 @@ import DevTools from "mobx-react-devtools";
 import TodoList from "./components/TodoList";
 import TodoListModel from "./models/TodoListModel";
 import TodoModel from "./models/TodoModel";
+import DevTools from "mobx-react-devtools";
 
 const store = new TodoListModel();
 
 render(
   <div>
-    <DevTools />
     <TodoList store={store} />
+    <DevTools />
   </div>,
   document.getElementById("root")
 );
