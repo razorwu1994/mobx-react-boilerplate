@@ -16,6 +16,7 @@ export default class BusList {
     );
   }
 
+  //The get syntax binds an object property to a function that will be called when that property is looked up.
   @computed
   get busSchedule() {
     return this.busList.find(bus => bus.route === route);
