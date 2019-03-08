@@ -2,28 +2,20 @@ import React from "react";
 import { render } from "react-dom";
 import DevTools from "mobx-react-devtools";
 
-import TodoList from "./components/TodoList";
-import TodoListModel from "./models/TodoListModel";
-import TodoModel from "./models/TodoModel";
-import DevTools from "mobx-react-devtools";
-
-const store = new TodoListModel();
+import BusList from "./models/BusList";
+import BusListView from "./components/BusListView";
+const store = new BusList();
 
 render(
   <div>
-    <TodoList store={store} />
+    <BusListView store={store} />
     <DevTools />
   </div>,
   document.getElementById("root")
 );
 
-store.addTodo("Get Coffee");
-store.addTodo("Write simpler code");
-store.todos[0].finished = true;
-
-setTimeout(() => {
-  store.addTodo("Get a cookie as well");
-}, 2000);
+store.addBus(0);
+store.addBus(1);
 
 // playing around in the console
 window.store = store;
