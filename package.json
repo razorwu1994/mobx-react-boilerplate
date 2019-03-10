@@ -1,5 +1,5 @@
 {
-  "name": "mobx-react-boilerplate",
+  "name": "xuyang-LSimpChinese",
   "version": "1.0.0",
   "description": "Boilerplate for MobX + React project with JSX, ES6 and decorator compilation",
   "scripts": {
@@ -18,7 +18,7 @@
     "mobx",
     "starter-kit"
   ],
-  "author": "Michel Weststrate <mweststrate@gmail.com> (http://github.com/mweststrate)",
+  "author": "Ruicheng Wu",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/mobxjs/mobx/issues"
