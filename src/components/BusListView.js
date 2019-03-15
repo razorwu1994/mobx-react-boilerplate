@@ -3,7 +3,7 @@ import { observable, action } from "mobx";
 import { observer } from "mobx-react";
 
 import Bus from "./Bus";
-
+import "./styles.css";
 @observer
 export default class BusListView extends React.Component {
   render() {
