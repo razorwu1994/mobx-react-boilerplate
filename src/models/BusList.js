@@ -1,12 +1,24 @@
-import { observable, computed, action, autorun, when } from "mobx";
+import {
+  observable,
+  computed,
+  action,
+  autorun,
+  when,
+  reaction,
+  runInAction
+} from "mobx";
 import BusModel from "./BusModel";
 
 export default class BusList {
-  @observable busList = [];
+  @observable busList = []; //busList = observable([])
 
   constructor() {
+    /**#3 reactions
+     * autorun,when,reaction
+     */
     autorun(() => {
       console.log(`Bus Number: ${this.busList.length}`);
+      //console.log(`Bus Number: ${this.busList[0]}`);//bad
     });
     when(
       // once...
@@ -14,8 +26,23 @@ export default class BusList {
       // ... then
       () => console.log("Too much")
     );
+    reaction(
+      () => this.busList.length * 100,
+      (data, reaction) => {
+        console.log("busList  times 100 ", data);
+      },
+      {}
+    ); //options?
   }
 
+  /**#1
+   *
+   *
+   *
+   *
+   * #2 : produce the value based on state without mutating
+   *
+   */
   //The get syntax binds an object property to a function that will be called when that property is looked up.
   @computed
   get busSchedule() {
@@ -26,7 +53,9 @@ export default class BusList {
   get busNumber() {
     return this.busList.length;
   }
+
   /**
+   * #4
    *
    * @param {Object} params
    * @param {String} params.route - bus route name
@@ -43,17 +72,32 @@ export default class BusList {
     return this.busList.splice(this.busList.findIndex(bus => bus.id === id), 1);
   }
 
-  //actions only apply to the current stack !
+  /**
+   * #4 async
+   *
+   * actions only apply to the current stack !
+   *  */
+
   @action
-  fetchBuses() {
-    new Promise((resolve, reject) => {
+  async fetchBuses() {
+    let result = await this.fetchHelper();
+    this.busList = result;
+    this.busList.push(new BusModel(3));
+    this.busList.push(new BusModel(4));
+    // runInAction(() => {
+    //   this.busList.push(new BusModel(3));
+    //   this.busList.push(new BusModel(4));
+    // });
+  }
+  @action
+  fetchHelper() {
+    return new Promise((resolve, reject) => {
       setTimeout(() => {
         resolve(true);
       }, 2000);
     }).then(result => {
-      this.busList = [new BusModel(0), new BusModel(1), new BusModel(2)];
+      return [new BusModel(0), new BusModel(1), new BusModel(2)];
     });
   }
-
-  // @action.bound
+  // @action.bound , only consider this if you don't use arrow function
 }
